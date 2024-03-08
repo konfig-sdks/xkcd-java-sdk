@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  description: "Webcomic of romance, sarcasm, math, and language."
+  title: XKCD
+  version: 1.0.0
+  x-apisguru-categories:
+  - media
+  x-logo:
+    url: http://imgs.xkcd.com/static/terrible_small_logo.png
+  x-origin:
+  - version: "3.0"
+    format: openapi
+    url: https://raw.githubusercontent.com/APIs-guru/unofficial_openapi_specs/master/xkcd.com/1.0.0/openapi.yaml
+  x-providerName: xkcd.com
+  x-tags:
+  - humor
+  - comics
+  x-unofficialSpec: true
+externalDocs:
+  url: https://xkcd.com/json.html
+servers:
+- url: http://xkcd.com
+tags:
+- name: Info
+paths:
+  /info.0.json:
+    get:
+      description: |
+        Fetch current comic and metadata.
+      operationId: Info_getComicMetadata
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/comic'
+          description: OK
+      tags:
+      - Info
+      x-konfig-operation-can-have-single-parameter: true
+      x-konfig-single-parameter-schema: konfig-generated-schema-single-parameter-schema-get--info.0.json
+      x-accepts: '*/*'
+  /{comicId}/info.0.json:
+    get:
+      description: |
+        Fetch comics and metadata  by comic id.
+      operationId: Info_getById
+      parameters:
+      - explode: false
+        in: path
+        name: comicId
+        required: true
+        schema:
+          type: number
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/comic'
+          description: OK
+      tags:
+      - Info
+      x-konfig-operation-can-have-single-parameter: true
+      x-konfig-single-parameter-schema: konfig-generated-schema-single-parameter-schema-get--comicId-info.0.json
+      x-accepts: '*/*'
+components:
+  schemas:
+    comic:
+      example:
+        news: news
+        img: img
+        transcript: transcript
+        month: month
+        year: year
+        num: 0.8008281904610115
+        alt: alt
+        link: link
+        title: title
+        day: day
+        safe_title: safe_title
+      properties:
+        title:
+          type: string
+        alt:
+          type: string
+        day:
+          type: string
+        img:
+          type: string
+        link:
+          type: string
+        month:
+          type: string
+        news:
+          type: string
+        num:
+          type: number
+        safe_title:
+          type: string
+        transcript:
+          type: string
+        year:
+          type: string
+      type: object
+      x-konfig-is-used-in-successful-response: true
+    konfig-generated-schema-single-parameter-schema-get--info.0.json:
+      properties: {}
+      type: object
+      x-do-not-generate: true
+      x-konfig-is-parameter: []
+    konfig-generated-schema-single-parameter-schema-get--comicId-info.0.json:
+      properties:
+        comicId:
+          type: number
+      required:
+      - comicId
+      type: object
+      x-do-not-generate: true
+      x-konfig-is-parameter:
+      - comicId
+
